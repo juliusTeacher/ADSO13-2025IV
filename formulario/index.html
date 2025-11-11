@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <script defer src="index.js"></script>
+    <title>Registro de Aprendices ADSO-13</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/" id="formRegistro">
+            <h1> Formulario de Registro </h1>
+            <div class="input-control">
+                <label for="lblUsuario">Usuario</label>
+                <input type="text" name="usuario" id="txtUsuario">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="lblCorreo">Correo electrónico</label>
+                <input type="text" name="correo" id="txtCorreo">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="lblPassword">Contraseña</label>
+                <input type="password" name="password" id="txtPassword">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="lblPasswordC">Confirmar contraseña</label>
+                <input type="password" name="password2" id="txtPassword2">
+                <div class="error"></div>
+            </div>
+            <button type="submit">Registrar aprendiz</button>
+        </form>
+    </div>
+</body>
+</html>
