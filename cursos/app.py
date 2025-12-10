@@ -21,11 +21,13 @@ def close_db():
 #---- Fin a la conexión con SQLite ----
 
 
+
+
+#-- Manejo de los endpoints (rutas)
+
 @app.route('/cursos/add')
 def add_curso():
     return render_template('cursos.html')
-
-#-- Manejo de los endpoints (rutas)
 
 #-- Listar cursos
 @app.route('/', methods=['GET', 'POST'])
@@ -58,5 +60,36 @@ def guardar_cursos():
     
     return redirect('/')
 
+#-- Editar cursos
+@app.route('/editar/<int:codigo>', methods=['GET', 'POST'])
+def editar_cursos(codigo):
+    con = sql_connection()
+    cursor = con.cursor()
+    datos = cursor.execute("SELECT * FROM curso WHERE idCurso=?",(codigo,)).fetchall()
+    
+    if request.method == 'POST':
+        nombre = request.form['txtNombre']
+        creditos = request.form['txtCreditos']
+        datos = cursor.execute("UPDATE curso SET nomCurso=?, creditos=? WHERE idCurso=?", (nombre, creditos, codigo))
+        con.commit()
+        con.close()
+        
+        return redirect(url_for('listar_cursos'))
+    
+    return render_template('editar.html', curso=datos[0])
+
+
+# -- Eliminar cursos
+@app.route('/eliminar/<int:codigo>', methods=['GET', 'POST'])
+def eliminar_cursos(codigo):
+    con = sql_connection()
+    cursor = con.cursor()
+    if request.method == 'GET':
+        cursor.execute("DELETE FROM curso WHERE idCurso=?",(codigo,))
+        con.commit()
+        con.close()
+        return redirect(url_for('listar_cursos'))
+    
+    
 if __name__ == '__main__':
     app.run(debug=True)
